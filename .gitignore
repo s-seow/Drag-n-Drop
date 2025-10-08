@@ -64,8 +64,6 @@ out-tsc/
 # -------------------------
 .env
 .env.*.local
-# keep an example file instead:
-# .env.example
 
 # -------------------------
 # Docker / Compose

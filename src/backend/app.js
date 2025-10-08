@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 
 // Load in mongoose models
 const { Board, Column, TaskCard, User, ResetToken, Comment } = require('./api/models');
+const e = require('express');
 
 /* MIDDLEWARE */
 
@@ -500,32 +501,32 @@ app.post('/send-email', (req, res) => {
         });
         
         const mailTransporter = nodemailer.createTransport({
-            service:"hotmail",
+            service: env.SMTP_SERVICE,
             auth: {
-                user: "wasdqwertymnbvcx@hotmail.com",
-                pass: "helloworld"
+                user: env.SMTP_USER,
+                pass: env.SMTP_PASS
             }
         })
         let mailDetails = {
-            from: "wasdqwertymnbvcx@hotmail.com",
+            from: env.SMTP_FROM,
             to: email,
             subject: "Reset Password",
             html: `
-<html>
-<head>
-    <title>Password Reset Request</title>
-</head>
-<body>
-    <h1>Password Reset Request</h1>
-    <p>Dear ${user.username},</p>
-    <p>We have received a request to reset your password for your account with DragNDrop. To complete the password reset process, please click on the button below!</p>
-    <a href="http://localhost:4200/reset-password/${token}"><button style="background-color: #d291bc; color: white; padding: 14px 20px; border: none;
-     cursor: pointer; border-radius: 4px;">Reset Password</button></a>
-    <p>Please note that this link is only valid for 5 mins. If you did not request a password reset, please disregard this message.</p>
-    <p>Thank you</p>
-</body>
-</html>
-            `,
+                    <html>
+                    <head>
+                        <title>Password Reset Request</title>
+                    </head>
+                    <body>
+                        <h1>Password Reset Request</h1>
+                        <p>Dear ${user.username},</p>
+                        <p>We have received a request to reset your password for your account with DragNDrop. To complete the password reset process, please click on the button below!</p>
+                        <a href="http://localhost:4200/reset-password/${token}"><button style="background-color: #d291bc; color: white; padding: 14px 20px; border: none;
+                        cursor: pointer; border-radius: 4px;">Reset Password</button></a>
+                        <p>Please note that this link is only valid for 5 mins. If you did not request a password reset, please disregard this message.</p>
+                        <p>Thank you</p>
+                    </body>
+                    </html>
+                `,
         };
         mailTransporter.sendMail(mailDetails, async(err, data) => {
             if (err) {
