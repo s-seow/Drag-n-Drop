@@ -1,49 +1,32 @@
-version: "3.9"
 services:
   mongo:
     image: mongo:6
     restart: unless-stopped
-    ports:
-      - "27017:27017"                # optional: expose for local tools
+    ports: ["27017:27017"]
     environment:
-      MONGO_INITDB_DATABASE: Kanbanize
+      MONGO_INITDB_DATABASE: DragNDrop
     volumes:
       - mongo_data:/data/db
-    healthcheck:
-      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
 
   backend:
-    build: ./src/backend
-    restart: unless-stopped
-    env_file:
-      - .env                         # contains MONGO_URI
+    image: node:20-alpine
+    volumes:
+      - .:/app
+    working_dir: /app/src/backend
+    command: ["sh","-lc","npm ci --omit=dev && node app.js"]
+    env_file: [.env]
     environment:
       PORT: "8080"
-    depends_on:
-      mongo:
-        condition: service_healthy
-    ports:
-      - "8080:8080"
+    depends_on: [mongo]
+    ports: ["8080:8080"]
 
-  # Angular — dev mode (hot reload). For prod, see section 4.
+
+
   frontend:
-    build:
-      context: ./src/frontend
-      dockerfile: Dockerfile.dev
+    build: ./src/frontend
     restart: unless-stopped
-    environment:
-      # Point Angular app at backend base URL
-      NG_APP_API_BASE_URL: "http://localhost:8080"
-    ports:
-      - "4200:4200"
-    volumes:
-      - ./src/frontend:/app          # live reload for dev
-      - /app/node_modules            # keep node_modules inside container
-    depends_on:
-      - backend
+    depends_on: [backend]
+    ports: ["8085:80"]
 
 volumes:
   mongo_data:

@@ -3,12 +3,12 @@ const app = express();
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 
-const { mongoose } = require('../data/mongoose');
+const { mongoose } = require('./api/mongoose');
 
 const bodyParser = require('body-parser');
 
 // Load in mongoose models
-const { Board, Column, TaskCard, User, ResetToken, Comment } = require('../data/models');
+const { Board, Column, TaskCard, User, ResetToken, Comment } = require('./api/models');
 
 /* MIDDLEWARE */
 
@@ -558,7 +558,11 @@ app.post('/reset-password', (req, res) => {
 
 /* HELPER METHODS */
 
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
+});
 
-app.listen(3000, () => {
-    console.log("Server is listening on port 3000");
-})
+// app.listen(3000, () => {
+//     console.log("Server is listening on port 3000");
+// })
