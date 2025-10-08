@@ -2,7 +2,8 @@
 Drag'n'Drop is a Kanban Board-style project manager. This full-stack web application makes use of a frontend in Angular, backend in Node.js and database in MongoDB. 
 
 ## Useful commands
-bash```
+bash 
+```
 # see container status
 docker compose ps
 
