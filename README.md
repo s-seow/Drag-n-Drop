@@ -16,9 +16,10 @@ JWT_SECRET=change_me
 REFRESH_TOKEN_SECRET=change_me_too
 
 # optional (only if using password reset)
-SMTP_SERVICE=hotmail
+SMTP_SERVICE=gmail/hotmail/outlook
 SMTP_USER=you@example.com
-SMTP_PASS=app_password_or_secret
+SMTP_PASS=your_16_letter_key
+SMTP_FROM=DragNDrop
 ```
 
 ## How to Run
