@@ -1,5 +1,5 @@
-# Drag n Drop
-Drag n Drop is a Kanban Board-style project manager. This full-stack web application makes use of a frontend in Angular, backend in Node.js and database in MongoDB. 
+# Drag'n'Drop
+Drag'n'Drop is a Kanban Board-style project manager. This full-stack web application makes use of a frontend in Angular, backend in Node.js and database in MongoDB. 
 
 ## Dependencies required
 - [Angular CLI 17.2.3 & Node 20.11.1](https://radixweb.com/blog/how-to-install-angular-on-windows)
