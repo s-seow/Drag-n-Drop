@@ -3,12 +3,12 @@ const app = express();
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 
-const { mongoose } = require('./db/mongoose');
+const { mongoose } = require('../data/mongoose');
 
 const bodyParser = require('body-parser');
 
 // Load in mongoose models
-const { Board, Column, TaskCard, User, ResetToken, Comment } = require('./db/models');
+const { Board, Column, TaskCard, User, ResetToken, Comment } = require('../data/models');
 
 /* MIDDLEWARE */
 
@@ -500,14 +500,14 @@ app.post('/send-email', (req, res) => {
         });
         
         const mailTransporter = nodemailer.createTransport({
-            service:"gmail",
+            service:"hotmail",
             auth: {
-                user: "@gmail.com",
-                pass: ""
+                user: "wasdqwertymnbvcx@hotmail.com",
+                pass: "helloworld"
             }
         })
         let mailDetails = {
-            from: "@gmail.com",
+            from: "wasdqwertymnbvcx@hotmail.com",
             to: email,
             subject: "Reset Password",
             html: `
@@ -518,7 +518,7 @@ app.post('/send-email', (req, res) => {
 <body>
     <h1>Password Reset Request</h1>
     <p>Dear ${user.username},</p>
-    <p>We have received a request to reset your password for your account with Kanbanize. To complete the password reset process, please click on the button below!</p>
+    <p>We have received a request to reset your password for your account with DragNDrop. To complete the password reset process, please click on the button below!</p>
     <a href="http://localhost:4200/reset-password/${token}"><button style="background-color: #d291bc; color: white; padding: 14px 20px; border: none;
      cursor: pointer; border-radius: 4px;">Reset Password</button></a>
     <p>Please note that this link is only valid for 5 mins. If you did not request a password reset, please disregard this message.</p>
