@@ -25,7 +25,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 package-lock.json*
-# ^ keep lockfiles if you want reproducible builds; remove this line if you commit them
 
 # Caches
 .eslintcache
